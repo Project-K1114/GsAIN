@@ -1,60 +1,157 @@
-<!-- UPDATED VERSION: Enhanced visuals, clickable sections, background animations, and printables -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>G.s.A.I.N. | Gogon Sirangan Awareness & Information Network</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G.s.A.I.N. | Gogon Sirangan Awareness & Information Network</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{margin:0;background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);color:#e3f2fd;overflow-x:hidden}
+:root{
+  --primary:#4fc3f7;
+  --dark1:#0f2027;
+  --dark2:#203a43;
+  --dark3:#2c5364;
+  --text:#eaf6ff;
+  --card:#ffffff;
+}
 
-/* BACKGROUND */
+body.light{
+  --dark1:#f4f9ff;
+  --dark2:#e3f2fd;
+  --dark3:#bbdefb;
+  --text:#003344;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(135deg,var(--dark1),var(--dark2),var(--dark3));
+  color:var(--text);
+  overflow-x:hidden;
+  transition:.4s ease;
+}
+
 canvas{position:fixed;top:0;left:0;z-index:-1}
 
-/* HEADER */
-header{display:flex;align-items:center;gap:15px;justify-content:center;padding:25px;background:rgba(0,0,0,.55);backdrop-filter:blur(10px)}
-header img{width:70px;height:70px;border-radius:50%;background:#fff;padding:5px}
-header h1{margin:0;font-size:2.3rem;letter-spacing:2px}
-header span{font-size:.85rem;color:#81d4fa}
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 40px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(14px);
+}
+header .left{display:flex;align-items:center;gap:15px}
+header img{width:70px;height:70px;border-radius:50%;background:#fff;padding:6px}
+header h1{font-size:2rem;letter-spacing:2px}
+header p{font-size:.8rem;opacity:.8}
 
-/* NAV */
-nav{display:flex;justify-content:center;gap:20px;padding:15px;background:rgba(0,0,0,.6);position:sticky;top:0;z-index:10}
-nav button{background:none;border:none;color:#e3f2fd;font-size:1rem;padding:10px 18px;border-radius:15px;cursor:pointer;transition:.3s}
-nav button:hover{background:#4fc3f7;color:#003344;transform:translateY(-3px)}
+.toggleBtn{
+  background:var(--primary);
+  border:none;
+  padding:8px 15px;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:600;
+}
 
-/* HOME */
-.home{min-height:85vh;display:flex;align-items:center;justify-content:center;padding:40px}
-.hero{background:rgba(255,255,255,.12);backdrop-filter:blur(18px);border-radius:30px;padding:50px;max-width:900px;text-align:center;box-shadow:0 25px 60px rgba(0,0,0,.4);animation:fadeUp 1.2s}
-.hero h2{font-size:2.2rem;margin-bottom:10px}
-.hero p{opacity:.9;line-height:1.8}
+nav{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  padding:14px;
+  background:rgba(0,0,0,0.7);
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+nav button{
+  border:none;
+  padding:10px 20px;
+  border-radius:30px;
+  background:rgba(255,255,255,0.1);
+  color:var(--text);
+  font-weight:500;
+  cursor:pointer;
+  transition:all .3s ease;
+}
+nav button:hover{
+  background:var(--primary);
+  color:#003344;
+  transform:translateY(-3px);
+}
 
-/* SECTION GRID */
-.sectionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:30px;margin-top:40px}
-.sectionCard{background:rgba(255,255,255,.9);color:#003344;padding:30px;border-radius:25px;cursor:pointer;transition:.4s;box-shadow:0 15px 40px rgba(0,0,0,.25)}
-.sectionCard:hover{transform:translateY(-10px) scale(1.05);background:#4fc3f7}
-.sectionCard h3{margin-top:0}
-
-/* PAGES */
-.page{display:none;padding:50px;animation:fade .6s}
+.page{display:none;padding:70px 12%;min-height:85vh;animation:fade .5s ease}
 .page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
 
-/* CARDS */
-.card{background:rgba(255,255,255,.95);border-radius:20px;padding:25px;margin-bottom:20px;color:#003344;box-shadow:0 10px 25px rgba(0,0,0,.2)}
-.card h3{margin-top:0;color:#0288d1}
+.hero{text-align:center;max-width:900px;margin:auto}
+.hero h2{
+  font-size:2.6rem;
+  margin-bottom:20px;
+  background:linear-gradient(to right,var(--primary),#ffffff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.hero p{line-height:1.8;opacity:.95}
 
-/* PRINT */
-.printBtn{background:#0288d1;color:white;border:none;padding:8px 15px;border-radius:10px;cursor:pointer;margin-top:10px}
-.printBtn:hover{background:#4fc3f7}
+.dashboard{
+  margin-top:50px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+}
 
-/* FOOTER */
-footer{text-align:center;padding:20px;background:rgba(0,0,0,.6);font-size:.85rem}
+.dashboardCard{
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(20px);
+  padding:35px;
+  border-radius:25px;
+  text-align:center;
+  cursor:pointer;
+  transition:all .4s ease;
+  box-shadow:0 15px 40px rgba(0,0,0,.35);
+}
+.dashboardCard:hover{
+  transform:translateY(-12px) scale(1.05);
+  background:var(--primary);
+  color:#003344;
+}
+.dashboardCard span{font-size:2rem;display:block;margin-bottom:10px}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fade{from{opacity:0}to{opacity:1}}
+.sectionTitle{text-align:center;font-size:2rem;margin-bottom:40px;color:var(--primary)}
+
+.card{
+  background:var(--card);
+  color:#003344;
+  padding:30px;
+  border-radius:20px;
+  margin-bottom:25px;
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+  transition:all .3s ease;
+}
+.card:hover{transform:scale(1.02)}
+.card h3{margin-bottom:10px;color:#0288d1}
+.card p{line-height:1.6}
+
+.printBtn{
+  margin-top:15px;
+  padding:8px 16px;
+  border:none;
+  border-radius:20px;
+  background:var(--primary);
+  color:#003344;
+  cursor:pointer;
+  font-weight:600;
+}
+
+footer{text-align:center;padding:20px;background:rgba(0,0,0,0.7);font-size:.85rem}
+
+@media print{
+  nav, header, footer, .toggleBtn, .printBtn{display:none}
+  body{background:white;color:black}
+  .card{box-shadow:none;border:1px solid #ccc}
+}
 </style>
 </head>
 <body>
@@ -62,11 +159,14 @@ footer{text-align:center;padding:20px;background:rgba(0,0,0,.6);font-size:.85rem
 <canvas id="bg"></canvas>
 
 <header>
-  <img src="gogon-sirangan-logo.png" alt="Barangay Logo">
-  <div>
-    <h1>G.s.A.I.N.</h1>
-    <span>Gogon Sirangan Awareness & Information Network</span>
+  <div class="left">
+    <img src="gogon-sirangan-logo.png" alt="Barangay Logo">
+    <div>
+      <h1>G.s.A.I.N.</h1>
+      <p>Gogon Sirangan Awareness & Information Network</p>
+    </div>
   </div>
+  <button class="toggleBtn" onclick="toggleMode()">Toggle Mode</button>
 </header>
 
 <nav>
@@ -77,64 +177,59 @@ footer{text-align:center;padding:20px;background:rgba(0,0,0,.6);font-size:.85rem
   <button onclick="openPage('contacts')">Contacts</button>
 </nav>
 
-<!-- HOME -->
-<div id="home" class="page active home">
+<div id="home" class="page active">
   <div class="hero">
     <h2>Welcome to G.s.A.I.N.</h2>
-    <p>A centralized digital platform designed to enhance barangay communication, awareness, and access to essential information for the residents of Gogon Sirangan.</p>
+    <p>A centralized digital platform improving barangay awareness, service access, and emergency communication for the residents of Gogon Sirangan.</p>
 
-    <div class="sectionGrid">
-      <div class="sectionCard" onclick="openPage('announcements')">
-        <h3>📢 Announcements</h3>
-        <p>View official barangay announcements and advisories.</p>
+    <div class="dashboard">
+      <div class="dashboardCard" onclick="openPage('announcements')">
+        <span>📢</span>
+        <h3>Announcements</h3>
       </div>
-      <div class="sectionCard" onclick="openPage('services')">
-        <h3>📄 Service Guide</h3>
-        <p>Learn procedures and requirements for barangay services.</p>
+      <div class="dashboardCard" onclick="openPage('services')">
+        <span>📄</span>
+        <h3>Service Guide</h3>
       </div>
-      <div class="sectionCard" onclick="openPage('emergency')">
-        <h3>🚨 Emergency</h3>
-        <p>Access emergency hotlines and safety contacts.</p>
+      <div class="dashboardCard" onclick="openPage('emergency')">
+        <span>🚨</span>
+        <h3>Emergency</h3>
       </div>
-      <div class="sectionCard" onclick="openPage('contacts')">
-        <h3>☎️ Contacts</h3>
-        <p>Barangay officials and offices.</p>
+      <div class="dashboardCard" onclick="openPage('contacts')">
+        <span>☎</span>
+        <h3>Contacts</h3>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ANNOUNCEMENTS -->
 <div id="announcements" class="page">
-  <h2>Announcements</h2>
+  <h2 class="sectionTitle">Announcements</h2>
   <div class="card">
     <h3>[Announcement Title]</h3>
     <p>Enter announcement details here.</p>
   </div>
 </div>
 
-<!-- SERVICES -->
 <div id="services" class="page">
-  <h2>Service Guide</h2>
+  <h2 class="sectionTitle">Service Guide</h2>
   <div class="card">
     <h3>[Service Name]</h3>
     <p><b>Requirements:</b> List requirements here.</p>
     <p><b>Procedure:</b> Step-by-step instructions.</p>
-    <button class="printBtn" onclick="window.print()">Print Service Guide</button>
+    <button class="printBtn" onclick="window.print()">Print</button>
   </div>
 </div>
 
-<!-- EMERGENCY -->
 <div id="emergency" class="page">
-  <h2>Emergency Hotlines</h2>
+  <h2 class="sectionTitle">Emergency Hotlines</h2>
   <div class="card">
     <p><b>[Office Name]</b> – Contact Number</p>
   </div>
 </div>
 
-<!-- CONTACTS -->
 <div id="contacts" class="page">
-  <h2>Contacts</h2>
+  <h2 class="sectionTitle">Barangay Contacts</h2>
   <div class="card">
     <p><b>[Name / Position]</b> – Contact Number</p>
   </div>
@@ -148,23 +243,27 @@ footer{text-align:center;padding:20px;background:rgba(0,0,0,.6);font-size:.85rem
 function openPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// Background animation
+function toggleMode(){document.body.classList.toggle('light')}
+
 const c=document.getElementById('bg'),ctx=c.getContext('2d');
 c.width=innerWidth;c.height=innerHeight;
-let nodes=Array.from({length:70},()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:Math.random()*0.5,vy:Math.random()*0.5}));
+let nodes=Array.from({length:70},()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*0.5,vy:(Math.random()-.5)*0.5}));
 function animate(){
   ctx.clearRect(0,0,c.width,c.height);
   nodes.forEach(n=>{
     ctx.beginPath();ctx.arc(n.x,n.y,2,0,Math.PI*2);
     ctx.fillStyle='rgba(79,195,247,.7)';ctx.fill();
     n.x+=n.vx;n.y+=n.vy;
-    if(n.x>c.width||n.y>c.height||n.x<0||n.y<0){n.x=Math.random()*c.width;n.y=Math.random()*c.height}
+    if(n.x<0||n.x>c.width)n.vx*=-1;
+    if(n.y<0||n.y>c.height)n.vy*=-1;
   });
   requestAnimationFrame(animate);
 }
 animate();
 </script>
+
 </body>
 </html>
